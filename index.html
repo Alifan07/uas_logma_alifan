@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UAS Logika Matematika</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f4f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      max-width: 500px;
+      width: 100%;
+    }
+
+    h1 {
+      text-align: center;
+      color: #1a3b7b;
+    }
+
+    .info {
+      background: #f8f9fc;
+      border-left: 4px solid #1a3b7b;
+      padding: 10px 15px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+
+    input {
+      width: 95.5%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    .btn {
+      margin-top: 20px;
+      background: #23d160;
+      color: white;
+      border: none;
+      padding: 10px;
+      font-weight: bold;
+      border-radius: 6px;
+      width: 100%;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background: #1eb14f;
+    }
+
+    .result {
+      margin-top: 20px;
+      display: none;
+    }
+
+    .status {
+      background: #e7f8ed;
+      border-left: 4px solid #23d160;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    .logic {
+      background: #fff8e5;
+      border-left: 4px solid #f0c000;
+      padding: 10px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .argument {
+      background: #eef2ff;
+      border-left: 4px solid #4b6ef5;
+      padding: 10px 15px;
+      border-radius: 8px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      margin-top: 8px;
+      gap: 8px;
+      font-weight: normal;
+    }
+
+    .checkbox-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding-top: 6px;
+        margin-bottom: 8px;
+    }
+
+    .checkbox-wrapper input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #1a3b7b;
+    }
+
+    .checkbox-wrapper label {
+        font-weight: normal;
+        font-size: 14px;
+        color: #222;
+        cursor: pointer;
+        margin-top: -1px;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>UAS Logika Matematika</h1>
+
+    <div class="info">
+      <b>Nama:</b> MUHAMMAD KAUTSAR ALIFAN MUDZAKIR<br>
+      <b>NIM:</b> 256612001 <br>
+      <b>Kelas:</b> Informatika semester 1 NR<br>
+      <b>Dosen:</b> Iin, M.Kom<br>
+      <b>Kampus:</b> Ma’soem University
+    </div>
+
+    <label for="jenisZakat">Pilih Jenis Zakat:</label>
+    <select id="jenisZakat">
+      <option value="emas">Zakat Emas</option>
+      <option value="pertanian">Zakat Pertanian</option>
+      <option value="penghasilan">Zakat Penghasilan</option>
+    </select>
+
+    <div id="form-emas" class="form-zakat">
+        <label>Jumlah emas:</label>
+        <div class="checkbox-wrapper">
+            <input type="checkbox" id="chkEmas" checked>
+            <label for="chkEmas">Aktifkan input jumlah emas</label>
+        </div>
+  
+        <input type="number" id="emas" placeholder="Masukkan jumlah emas (gram)">
+        <label>Lama Kepemilikan (tahun):</label>
+        <input type="number" id="haul" placeholder="Masukkan lama kepemilikan">
+    </div>
+
+    <div id="form-pertanian" class="form-zakat" style="display:none;">
+        <label>Hasil Panen (kg):</label>
+        <input type="number" id="hasilPertanian" placeholder="Masukkan hasil panen">
+        <label>Pengairan:</label>
+        <select id="jenisAir">
+            <option value="alami">Air Hujan / Irigasi Alami</option>
+            <option value="buatan">Irigasi Buatan (pompa, dsb)</option>
+        </select>
+    </div>
+
+    <div id="form-penghasilan" class="form-zakat" style="display:none;">
+      <label>Penghasilan Bulanan (Rp):</label>
+      <input type="number" id="gaji" placeholder="Masukkan penghasilan">
+      <label>Lama Bulan:</label>
+      <input type="number" id="bulan" placeholder="Masukkan jumlah bulan">
+    </div>
+
+    <button class="btn" id="cekZakat">Cek Status Zakat</button>
+
+    <div class="result" id="result">
+      <div class="status" id="statusZakat"></div>
+      <div class="logic" id="logicText"></div>
+      <div class="argument" id="argumentText"></div>
+    </div>
+  </div>
+
+  <script>
+    const jenisZakat = document.getElementById('jenisZakat');
+    const formEmas = document.getElementById('form-emas');
+    const formPertanian = document.getElementById('form-pertanian');
+    const formPenghasilan = document.getElementById('form-penghasilan');
+    const chkEmas = document.getElementById('chkEmas');
+    const inputEmas = document.getElementById('emas');
+    const resultBox = document.getElementById('result');
+    const statusText = document.getElementById('statusZakat');
+    const logicText = document.getElementById('logicText');
+    const argumentText = document.getElementById('argumentText');
+
+    // checkbox emas
+    chkEmas.addEventListener('change', () => {
+      if (chkEmas.checked) {
+        inputEmas.disabled = false;
+        inputEmas.value = "";
+      } else {
+        inputEmas.disabled = true;
+        inputEmas.value = 0;
+      }
+    });
+
+    // ganti form jenis zakat
+    jenisZakat.addEventListener('change', () => {
+      document.querySelectorAll('.form-zakat').forEach(f => f.style.display = 'none');
+      if (jenisZakat.value === 'emas') formEmas.style.display = 'block';
+      if (jenisZakat.value === 'pertanian') formPertanian.style.display = 'block';
+      if (jenisZakat.value === 'penghasilan') formPenghasilan.style.display = 'block';
+      resultBox.style.display = 'none';
+    });
+
+    // tombol cek zakat
+    document.getElementById('cekZakat').addEventListener('click', () => {
+      let status = "";
+      let hukum = "";
+      let argumen = "";
+      const jenis = jenisZakat.value;
+
+      if (jenis === 'emas') {
+        const emas = parseFloat(inputEmas.value) || 0;
+        const haul = parseFloat(document.getElementById('haul').value) || 0;
+        const wajib = emas >= 85 && haul >= 1;
+
+        status = wajib ? "Wajib Zakat" : "Tidak Wajib Zakat";
+        hukum = "Hukum logika pada perhitungan zakat di atas yaitu hukum konjungsi (AND), karena syarat wajib zakat adalah jumlah emas ≥ 85 gram dan kepemilikan ≥ 1 tahun.";
+        argumen = wajib
+          ? `Anda wajib zakat karena memiliki emas ${emas} gram selama ${haul} tahun.`
+          : `Anda belum wajib zakat karena emas Anda ${emas} gram dan dimiliki selama ${haul} tahun.`;
+
+      } else if (jenis === 'pertanian') {
+        const hasil = parseFloat(document.getElementById('hasilPertanian').value) || 0;
+        const air = document.getElementById('jenisAir').value;
+        const nisab = 653; // kg gabah
+        const wajib = hasil >= nisab;
+        const persen = air === 'alami' ? 0.1 : 0.05;
+
+        status = wajib ? "Wajib Zakat" : "Tidak Wajib Zakat";
+        hukum = "Hukum logika yang digunakan adalah implikasi (IF–THEN). Jika hasil panen ≥ 653 kg maka wajib zakat.";
+        argumen = wajib
+          ? `Anda wajib zakat sebesar ${(hasil * persen).toFixed(2)} kg karena panen ${hasil} kg dengan sistem pengairan ${air}.`
+          : `Anda belum wajib zakat karena hasil panen Anda ${hasil} kg belum mencapai nisab.`;
+
+      } else if (jenis === 'penghasilan') {
+        const gaji = parseFloat(document.getElementById('gaji').value) || 0;
+        const bulan = parseFloat(document.getElementById('bulan').value) || 0;
+        const total = gaji * bulan;
+        const nisab = 85 * 2290000; // harga emas 2.29jt x 85
+        const wajib = total >= nisab;
+
+        status = wajib ? "Wajib Zakat" : "Tidak Wajib Zakat";
+        hukum = "Hukum logika yang digunakan adalah disjungsi (OR). Jika penghasilan OR simpanan melebihi nisab maka wajib zakat.";
+        argumen = wajib
+          ? `Anda wajib zakat karena total penghasilan Anda Rp ${total.toLocaleString()} selama ${bulan} bulan melebihi nisab.`
+          : `Anda belum wajib zakat karena total penghasilan Rp ${total.toLocaleString()} masih di bawah nisab.`;
+      }
+
+      // hasil setelah submit
+      resultBox.style.display = 'block';
+      statusText.textContent = `Status: ${status}`;
+      logicText.textContent = hukum;
+      argumentText.textContent = argumen;
+    });
+  </script>
+</body>
+</html>
