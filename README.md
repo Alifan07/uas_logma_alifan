@@ -1,1 +1,1 @@
-# UTS Logika Matematika Informatika NR
+# UAS Logika Matematika Informatika NR
